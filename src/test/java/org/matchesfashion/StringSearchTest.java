@@ -18,10 +18,9 @@ public class StringSearchTest {
 
     @Test
     public void normalizeTextRemoveNewLines() {
-        String text = "abc" + System.getProperty("line.separator") + "def";
+        String text = "abc\ndef\rz";
 
-        String expected = "abc" +
-                "def";
+        String expected = "abcdefz";
         String actual = stringSearch.normalizeText(text);
         assertThat(actual).isEqualTo(expected);
     }
