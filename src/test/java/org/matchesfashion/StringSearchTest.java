@@ -156,6 +156,17 @@ public class StringSearchTest {
         assertThat(actual).containsExactly(expected);
     }
 
+
+    @Test
+    public void searchMostFrequentWordsForNullText() {
+        String text = null;
+
+        String[] expected = {};
+        String[] actual = stringSearch.searchMostFrequentWords(text);
+
+        assertThat(actual).containsExactly(expected);
+    }
+
     @Test
     public void searchMostFrequentWordsWhenOnly1Word() {
         String text = "cat";

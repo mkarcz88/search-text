@@ -15,7 +15,7 @@ public class StringSearch {
     public String[] searchMostFrequentWords(String text) {
         text = normalizeText(text);
 
-        if (text.length() == 0) {
+        if (text.isEmpty()) {
             return new String[0];
         }
 
@@ -27,6 +27,10 @@ public class StringSearch {
     }
 
     String normalizeText(String text) {
+        if (text == null) {
+            return "";
+        }
+
         return text.toLowerCase()
                 .replace("\n", "")
                 .replace("\r", "")
