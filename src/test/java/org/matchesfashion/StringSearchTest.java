@@ -19,82 +19,55 @@ public class StringSearchTest {
     @Test
     public void normalizeTextRemoveNewLines() {
         String text = "abc\ndef\rz";
-
-        String expected = "abcdefz";
-        String actual = stringSearch.normalizeText(text);
-        assertThat(actual).isEqualTo(expected);
+        assertThat(stringSearch.normalizeText(text)).isEqualTo("abcdefz");
     }
 
     @Test
     public void normalizeTextRemoveCommas() {
         String text = "ab,c";
-
-        String expected = "abc";
-        String actual = stringSearch.normalizeText(text);
-        assertThat(actual).isEqualTo(expected);
+        assertThat(stringSearch.normalizeText(text)).isEqualTo("abc");
     }
 
     @Test
     public void normalizeTextRemoveDots() {
         String text = "google.com";
-
-        String expected = "googlecom";
-        String actual = stringSearch.normalizeText(text);
-        assertThat(actual).isEqualTo(expected);
+        assertThat(stringSearch.normalizeText(text)).isEqualTo("googlecom");
     }
 
     @Test
     public void normalizeTextRemoveMultipleSpaces() {
         String text = "w     w    w";
-
-        String expected = "w w w";
-        String actual = stringSearch.normalizeText(text);
-        assertThat(actual).isEqualTo(expected);
+        assertThat(stringSearch.normalizeText(text)).isEqualTo("w w w");
     }
 
     @Test
     public void normalizeTextRemoveStartingSpaces() {
         String text = "   www";
-
-        String expected = "www";
-        String actual = stringSearch.normalizeText(text);
-        assertThat(actual).isEqualTo(expected);
+        assertThat(stringSearch.normalizeText(text)).isEqualTo("www");
     }
 
     @Test
     public void normalizeTextRemoveEndingSpaces() {
         String text = "www       ";
-
-        String expected = "www";
-        String actual = stringSearch.normalizeText(text);
-        assertThat(actual).isEqualTo(expected);
+        assertThat(stringSearch.normalizeText(text)).isEqualTo("www");
     }
 
     @Test
     public void normalizeTextRemoveQuotes() {
         String text = "\"the end\"";
-
-        String expected = "the end";
-        String actual = stringSearch.normalizeText(text);
-        assertThat(actual).isEqualTo(expected);
+        assertThat(stringSearch.normalizeText(text)).isEqualTo("the end");
     }
 
     @Test
     public void normalizeTextReturnsOnlyLowerCaseLetters() {
         String text = "WWW";
-
-        String expected = "www";
-        String actual = stringSearch.normalizeText(text);
-        assertThat(actual).isEqualTo(expected);
+        assertThat(stringSearch.normalizeText(text)).isEqualTo("www");
     }
 
     @Test
     public void normalizeTextPreserveApostrophe() {
         String text = "hasn't";
-
-        String expected = "hasn't";
-        String actual = stringSearch.normalizeText(text);
-        assertThat(actual).isEqualTo(expected);
+        assertThat(stringSearch.normalizeText(text)).isEqualTo("hasn't");
     }
 
     @Test
@@ -110,7 +83,7 @@ public class StringSearchTest {
     }
 
     @Test
-    public void searchMostFrequentWords() {
+    public void searchMostFrequentWordsInLongString() {
         String text = "In a village of La Mancha, the name of which I have\n" +
                 "no desire to call to\n" +
                 "mind, there lived not long since one of those gentlemen that keep a lance\n" +
@@ -119,70 +92,42 @@ public class StringSearchTest {
                 "nights, scraps on Saturdays, lentils on Fridays, and a pigeon or so extra\n" +
                 "on Sundays, made away with three-quarters of his income.\")\n";
 
-        String[] expected = {"a", "of", "on"};
-        String[] actual = stringSearch.searchMostFrequentWords(text);
-
-        assertThat(actual).containsExactly(expected);
+        assertThat(stringSearch.searchMostFrequentWords(text)).containsExactly("a", "of", "on");
     }
 
     @Test
-    public void searchMostFrequentWords2() {
+    public void searchMostFrequentWordsInMediumString() {
         String text = "e e e e DDD ddd DdD: ddd ddd aa aA Aa, bb cc cC e e e";
-
-        String[] expected = {"e", "ddd", "aa"};
-        String[] actual = stringSearch.searchMostFrequentWords(text);
-
-        assertThat(actual).containsExactly(expected);
+        assertThat(stringSearch.searchMostFrequentWords(text)).containsExactly("e", "ddd", "aa");
     }
 
     @Test
-    public void searchMostFrequentWords3() {
+    public void searchMostFrequentWordsInShortString() {
         String text = "wont won't won't";
-
-        String[] expected = {"won't", "wont"};
-        String[] actual = stringSearch.searchMostFrequentWords(text);
-
-        assertThat(actual).containsExactly(expected);
+        assertThat(stringSearch.searchMostFrequentWords(text)).containsExactly("won't", "wont");
     }
 
     @Test
     public void searchMostFrequentWordsForEmptyText() {
         String text = "";
-
-        String[] expected = {};
-        String[] actual = stringSearch.searchMostFrequentWords(text);
-
-        assertThat(actual).containsExactly(expected);
+        assertThat(stringSearch.searchMostFrequentWords(text)).isEmpty();
     }
 
 
     @Test
     public void searchMostFrequentWordsForNullText() {
-        String text = null;
-
-        String[] expected = {};
-        String[] actual = stringSearch.searchMostFrequentWords(text);
-
-        assertThat(actual).containsExactly(expected);
+        assertThat(stringSearch.searchMostFrequentWords(null)).isEmpty();
     }
 
     @Test
     public void searchMostFrequentWordsWhenOnly1Word() {
         String text = "cat";
-
-        String[] expected = {"cat"};
-        String[] actual = stringSearch.searchMostFrequentWords(text);
-
-        assertThat(actual).containsExactly(expected);
+        assertThat(stringSearch.searchMostFrequentWords(text)).containsExactly("cat");
     }
 
     @Test
     public void searchMostFrequentWordsWhenOnly2Words() {
         String text = "cat dog";
-
-        String[] expected = {"cat", "dog"};
-        String[] actual = stringSearch.searchMostFrequentWords(text);
-
-        assertThat(actual).containsExactly(expected);
+        assertThat(stringSearch.searchMostFrequentWords(text)).containsExactly("cat", "dog");
     }
 }
