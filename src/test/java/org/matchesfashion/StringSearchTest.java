@@ -18,7 +18,7 @@ public class StringSearchTest {
 
     @Test
     public void normalizeTextRemoveNewLines() {
-        String text = "abc\ndef\rz";
+        String text = "abc\nd\tef\rz";
         assertThat(stringSearch.normalizeText(text)).isEqualTo("abcdefz");
     }
 

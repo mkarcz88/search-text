@@ -11,6 +11,10 @@ import static java.util.Arrays.asList;
 public class StringSearch {
 
     private static final int NUMBER_OF_MOST_FREQUENT_WORDS = 3;
+    private static final String SPECIAL_CHARACTERS_REG_EXP = "[\n\r\t,.\"]";
+    private static final String MULTIPLE_SPACE_REG_EXP = " +";
+    private static final String SPACE = " ";
+    private static final String EMPTY_STRING = "";
 
     public String[] searchMostFrequentWords(String text) {
         text = normalizeText(text);
@@ -28,22 +32,18 @@ public class StringSearch {
 
     String normalizeText(String text) {
         if (text == null) {
-            return "";
+            return EMPTY_STRING;
         }
 
         return text.toLowerCase()
-                .replace("\n", "")
-                .replace("\r", "")
-                .replace(",", "")
-                .replace(".", "")
-                .replace("\"", "")
-                .replaceAll(" +", " ")
+                .replaceAll(SPECIAL_CHARACTERS_REG_EXP, EMPTY_STRING)
+                .replaceAll(MULTIPLE_SPACE_REG_EXP, SPACE)
                 .trim();
     }
 
     Map<String, Integer> splitTextIntoSortedWords(String text) {
         Map<String, Integer> words = new HashMap<>();
-        List<String> wordsAsList = asList(text.split(" "));
+        List<String> wordsAsList = asList(text.split(SPACE));
         wordsAsList.forEach(word -> words.merge(word, 1, Integer::sum));
 
         return words.entrySet().stream()
